@@ -1,33 +1,35 @@
 {{> header}}
 
-<div class="row justify-content-center">
-    <img class="img-fluid" src="/logoprojecto.png">
-</div>
-<div class="container d-flex justify-content-center">
-    <div class="jumbotron my-auto pt-1">
-      <h1 class="display-3">Sign up</h1>
-
-            <form action="/signup" method="post" class="container">
-                Username
-                <div class="row mb-2">
-                    <input type="text" name="name" placeholder="name" />
-                </div>
-                MDP
-                <div class="row mb-3">
-                    <input type="password" name="password" placeholder="password" />
-                </div>
-                Valider votre MDP
-                <div class="row mb-3">
-                    <input type="password" name="passwordvalidation" placeholder="password" />
-                </div>
-                <div class="row justify-content-center">
-                    <button type="submit" class="btn btn-info">Sign up</button>
-                </div>
-              </form>
-
-      
+<div class="container">
+    <div class="row justify-content-center pt-5">
+        <img class="img-fluid" src="/logoprojecto.png">
     </div>
- </div>
     
+    <div class="container d-flex justify-content-center">
+        <div class="jumbotron my-auto pt-1">
+          <h1 class="display-3">Sign up</h1>
+    
+                <form action="/signup" method="post" class="container">
+                    Username
+                    <div class="row mb-2">
+                        <input type="text" name="name" placeholder="name" />
+                    </div>
+                    MDP
+                    <div class="row mb-3">
+                        <input type="password" name="password" placeholder="password" />
+                    </div>
+                    Valider votre MDP
+                    <div class="row mb-3">
+                        <input type="password" name="passwordvalidation" placeholder="password" />
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn btn-info">Sign up</button>
+                    </div>
+                  </form>
+    
+          
+        </div>
+     </div>
+</div>
 
 {{> footer}}
