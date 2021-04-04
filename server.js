@@ -10,8 +10,11 @@ app.engine('html', mustache());
 app.set('view engine', 'html');
 app.set('views', './views');
 
+var plantes = require('./plantes_sql');
+
 
 app.get('/',(req,res) =>{
+    console.log(plantes.read(0));
     res.render('home');
 })
 
@@ -20,8 +23,17 @@ app.get('/signup',(req,res) =>{
 });
 
 app.post('/signup',(req,res) =>{
-    console.log(req.body.name);
-    res.redirect('/');
+
+    if(req.body.name != "" && req.body.password != "" && req.body.passwordvalidation == req.body.password){
+        res.redirect('/');
+    }
+    else{
+        res.redirect('/signup');
+    }
+});
+
+app.get("/shop", (req,res) =>{
+    res.render("shop",{plantes_list : plantes.list()});
 });
 
 app.listen(3000, () => console.log('listening on http://localhost:3000'));

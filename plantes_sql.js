@@ -5,7 +5,7 @@ var db = new Sqlite('db.sqlite');
 
 
 
-/*
+
 exports.list = function(){
     var plantes_list = db.prepare('SELECT * FROM plantes ORDER BY id').all();
     return plantes_list;
@@ -19,6 +19,7 @@ exports.read = function(id){
     return idPlantes;
 }
 
+/*
 exports.create = function(description, image, name) {
     var insert = db.prepare('INSERT INTO plantes(description, image, name) VALUES (?, ?, ?)');
     var idPlantes = insert.run(description, image, name);
