@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(__dirname + '/css'));
 app.use(express.static("ressources"));
 app.engine('html', mustache());
 app.set('view engine', 'html');
@@ -14,7 +15,6 @@ var plantes = require('./plantes_sql');
 
 
 app.get('/',(req,res) =>{
-    console.log(plantes.read(0));
     res.render('home');
 })
 
@@ -34,6 +34,10 @@ app.post('/signup',(req,res) =>{
 
 app.get("/shop", (req,res) =>{
     res.render("shop",{plantes_list : plantes.list()});
+});
+
+app.get("/test", (req,res) =>{
+    res.render("test");
 });
 
 app.listen(3000, () => console.log('listening on http://localhost:3000'));
