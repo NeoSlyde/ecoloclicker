@@ -35,19 +35,21 @@
   
       <div id="mySidenav" class="sidenav">
         <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="#">Accueil</a>
+		<a href="/">Accueil</a>
 		{{#authenticated}}
-        <a href="#">Profile</a>
-        <a href="#">Boutique</a>
+        <a href="/profile">Profile</a>
+        <a href="/shop">Boutique</a>
 		{{/authenticated}}
-        <a href="#">Classement</a>
-        <a href="/">À propos</a>
+        <a href="/ranking">Classement</a>
+        <a href="/aboutus">À propos</a>
 
 		{{#authenticated}}
+		{{#inShop}}
         <form class="form-inline" style="margin-top: 16px;">
             <input class="form-control mr-sm-2" style="width: 115px; margin-left: 34px;" type="search" placeholder="Search plant" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+		{{/inShop}}
         <div style="height: 62%; position:relative;">
             <form action="/logout" method="get">
                 <input type="submit" class="btn btn-danger" style="position:absolute;bottom:0;right:10px;" 

@@ -24,14 +24,17 @@ app.use(cookieSession({
 
 //============================RENDER=============================//
 app.get('/', middleware, (req,res) =>{
+    res.locals.inShop = false;
     res.render('index');
 })
 
 app.get('/signup',(req,res) =>{
+    res.locals.inShop = false;
     res.render('signup');
 });
 
 app.get("/shop", is_authenticated, (req,res) =>{
+    res.locals.inShop = true;
     res.render("shop",{plantes_list : plantes.list()});
 });
 

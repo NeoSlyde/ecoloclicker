@@ -1,33 +1,10 @@
 {{> header}}
 
 <!-- TODO -->.
-    <div id="mySidenav" class="sidenav">
-        <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Profil</a>
-        <a href="#">Game</a>
-        <a href="#">Shop</a>
-        <a href="#">Ranking</a>
-        <a href="/">About</a>
-
-        <form class="form-inline" style="margin-top: 16px;">
-            <input class="form-control mr-sm-2" style="width: 115px; margin-left: 34px;" type="search" placeholder="Search plant" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-
-        {{#authenticated}}
-        <div style="height: 62%; position:relative;">
-            <form action="/logout" method="get">
-                <input type="submit" class="btn btn-danger" style="position:absolute;bottom:0;right:10px;" 
-                value="Deconnexion" name="logout"/>
-            </form>
-        </div>
-        {{/authenticated}}
-
-    </div>
   
     <button style="position: fixed;top: 10px;right: 10px; padding-left: 0; padding-right: 0; border-radius: 50px; background-color: Transparent; border: none;" onclick="openNav()">
-     <img src="https://img.icons8.com/cotton/2x/menu.png" style="width: 40px;">
-    </button>
+        <img src="https://img.icons8.com/cotton/2x/menu.png" style="width: 50px;">
+      </button>
 
 
     <div class="jumbotron ml-2 mr-2" style="background: none;">

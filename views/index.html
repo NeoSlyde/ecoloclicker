@@ -7,7 +7,7 @@
 
 {{^authenticated}}
   <button style="position: fixed;top: 10px;right: 10px; padding-left: 0; padding-right: 0; border-radius: 50px; background-color: Transparent; border: none;" onclick="openNav()">
-    <img src="https://img.icons8.com/cotton/2x/menu.png" style="width: 40px;">
+    <img src="https://img.icons8.com/cotton/2x/menu.png" style="width: 100px;">
   </button>
 
 
@@ -50,14 +50,10 @@
 {{#authenticated}}
 
   <body onload="initElement();">
-
     <div class="game">
-      <div id="mySidenav" class="sidenav">
-        <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/shop">Boutique</a>
-        <a href="#">Classement</a>
-        <a href="#">À propos</a>
-      </div>
+      <button style="position: fixed;top: 10px;right: 10px; padding-left: 0; padding-right: 0; border-radius: 50px; background-color: Transparent; border: none;" onclick="openNav()">
+        <img src="https://img.icons8.com/cotton/2x/menu.png" style="width: 100px;">
+      </button>
       <div class="score">
         SCORE:
       </div>
