@@ -35,8 +35,10 @@
   
       <div id="mySidenav" class="sidenav">
         <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+		{{#authenticated}}
 		<a href="#">Bonjour, {{name}}!</a>
 		<hr style="height: 2px; color: #FFF; background-color: #FFF; width: 50%; border: none;">
+		{{/authenticated}}
 		<a href="/">Accueil</a>
 		{{#authenticated}}
         <a href="/profile">Profile</a>
