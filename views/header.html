@@ -24,8 +24,37 @@
     </script>
 
   <link rel="stylesheet" type="text/css" href="sideBar.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" type="text/css" href="background.css">
+  <script type="text/javascript" src="script.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdn.rawgit.com/labnol/files/master/yt.js"></script>
   </head>
       
   <body>
+  
+      <div id="mySidenav" class="sidenav">
+        <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="#">Accueil</a>
+		{{#authenticated}}
+        <a href="#">Profile</a>
+        <a href="#">Boutique</a>
+		{{/authenticated}}
+        <a href="#">Classement</a>
+        <a href="/">À propos</a>
+
+		{{#authenticated}}
+        <form class="form-inline" style="margin-top: 16px;">
+            <input class="form-control mr-sm-2" style="width: 115px; margin-left: 34px;" type="search" placeholder="Search plant" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <div style="height: 62%; position:relative;">
+            <form action="/logout" method="get">
+                <input type="submit" class="btn btn-danger" style="position:absolute;bottom:0;right:10px;" 
+                value="Deconnexion" name="logout"/>
+            </form>
+        </div>
+        {{/authenticated}}
+
+    </div>
     

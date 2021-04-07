@@ -23,8 +23,8 @@ app.use(cookieSession({
 }));
 
 //============================RENDER=============================//
-app.get('/',(req,res) =>{
-    res.render('home');
+app.get('/', middleware, (req,res) =>{
+    res.render('index');
 })
 
 app.get('/signup',(req,res) =>{
@@ -61,6 +61,10 @@ function middleware(req, res, next) {
 
 
 app.post('/signup',(req,res) =>{
+    if(req.body.password != req.body.password2){
+      res.locals.wrong = true;
+      res.render('signup')
+    }
     var hashedPassword = crypt_password(req.body.password);
     console.log(hashedPassword);
     const user = model_user.new_user(req.body.name, hashedPassword);
@@ -75,20 +79,19 @@ function crypt_password(password) {
     return saved_hash;
 }
 
-
 app.post('/login', (req, res) => {
     const user = model_user.login(req.body.name, req.body.password);
     console.log(user);
     if (user != -1 && user != -2) {
       req.session.user = user;
       res.locals.name = req.body.name;
-      res.redirect('/shop');
+      res.redirect('/');
     } else if (user == -1) {
       res.locals.failed_name = true;
-      res.redirect('/');
+      res.render('index');
     } else if (user == -2) {
       res.locals.failed_pass = true;
-      res.redirect('/');
+      res.render('index');
     } else {
       res.redirect('/');
     }
