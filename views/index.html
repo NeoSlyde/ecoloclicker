@@ -64,16 +64,15 @@
       </div>
       <div class="hitbox" id="hitbox">
       </div>
-      
-      <div class="tchat">
+      <div class="tchat" id="tchat">
         <div class = "messagesBlock" id="messagesBlock">
         {{#messages}}
           <p> <strong>{{name}}</strong> : {{message}} </p>
         {{/messages}}
         </div>
         <form class="form-inline justify-content-center" action="/add_message" method="post">
-          <input class="form-control m-1" type="text" name="text" placeholder="Texte" autofocus>
-          <input class="form-control btn btn-primary m-1" type="submit" value="Ajouter">
+          <input class="form-control m-2" type="text" name="text" autofocus>
+          <input class="form-control btn btn-primary m-1" type="submit" value="Envoyer">
         </form>
       </div>
     </div>
