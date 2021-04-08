@@ -7,11 +7,13 @@ var db = new Sqlite('db.sqlite');
 var load = function(filename) {
     var plantes = JSON.parse(fs.readFileSync(filename));
 
-    db.prepare('DROP TABLE IF EXISTS plantes').run();
-    db.prepare('DROP TABLE IF EXISTS user').run();
+    //db.prepare('DROP TABLE IF EXISTS plantes').run();
+    //db.prepare('DROP TABLE IF EXISTS user').run();
+    //db.prepare('DROP TABLE IF EXISTS messages').run();
 
-    db.prepare('CREATE TABLE Plantes(id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, image TEXT, name TEXT, stock INT)').run();
-    db.prepare('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, score INT)').run();
+    db.prepare('CREATE TABLE IF NOT EXISTS Plantes(id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, image TEXT, name TEXT, stock INT)').run();
+    db.prepare('CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, score INT)').run();
+	db.prepare('CREATE TABLE IF NOT EXISTS messages (idUser ID, message TEXT)').run();
 	
     db.prepare("INSERT INTO user (name, password) VALUES ('admin', 'password')").run();
     var insert = db.prepare("INSERT INTO Plantes VALUES (@id, @description, @image, @name, 0)");

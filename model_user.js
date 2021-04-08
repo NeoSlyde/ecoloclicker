@@ -24,4 +24,3 @@ exports.new_user = function(name, password){
     db.prepare("INSERT INTO user (name, password) VALUES (?, ?)").run(name, password);
     return db.prepare('SELECT * FROM user WHERE name = ?').get(name);
 }
-  

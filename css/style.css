@@ -59,6 +59,22 @@ label {
   position: absolute;
 }
 
+.tchat{
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  height: 700px;
+  width: 420px;
+}
+.container{
+  word-wrap: break-word;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 90%;
+  color: white; 
+}
+
+
 .score{
   position: absolute;
   font-family: "Press Start 2P";

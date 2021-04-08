@@ -12,8 +12,10 @@ app.engine('html', mustache());
 app.set('view engine', 'html');
 app.set('views', './views');
 
+
 var plantes = require('./plantes_sql');
 var model_user = require('./model_user');
+var model_messages = require('./model_messages');
 
 const cookieSession = require('cookie-session');
 app.use(cookieSession({
@@ -25,7 +27,7 @@ app.use(cookieSession({
 //============================RENDER=============================//
 app.get('/', middleware, (req,res) =>{
     res.locals.inShop = false;
-    res.render('index');
+    res.render('index',{messages : model_messages.messages_list()});
 })
 
 app.get('/signup',(req,res) =>{
@@ -36,6 +38,13 @@ app.get('/signup',(req,res) =>{
 app.get("/shop", is_authenticated, (req,res) =>{
     res.locals.inShop = true;
     res.render("shop",{plantes_list : plantes.list()});
+});
+
+app.post('/add_message', is_authenticated,(req,res)=>{
+    if(req.body.text != ""){
+      model_messages.add_message(req.session.user.id, req.body.text);
+    }
+      res.redirect("/");
 });
 
 //=========================SESSION===========================//
