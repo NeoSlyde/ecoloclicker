@@ -19,6 +19,10 @@ function initElement()
 });
 };
 
+function scrollBarChatOnBottom(){
+  var chatHistory = document.getElementById("messagesBlock");
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+}
 
 function showAlert()
 {
