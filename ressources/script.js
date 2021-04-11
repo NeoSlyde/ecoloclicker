@@ -19,10 +19,22 @@ function initElement()
 });
 };
 
-function scrollBarChatOnBottom(){
-  var chatHistory = document.getElementById("messagesBlock");
-  chatHistory.scrollTop = chatHistory.scrollHeight;
+
+function refresh_messages(){
+  setInterval(function() {
+    fetch('/messages_content').then(function(response) {
+      return response.text();
+  
+    }).then(function(text) {
+      var messages = document.getElementById('messagesBlock');
+      messages.innerHTML = text;
+  
+    });
+  }, 1000);
+  
+  
 }
+
 
 function showAlert()
 {

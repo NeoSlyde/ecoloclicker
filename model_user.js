@@ -5,7 +5,7 @@ let db = new Sqlite('db.sqlite');
 
 
 exports.login = function(name, password){
-    var found = db.prepare('SELECT * FROM user WHERE name = ?').get(name);
+    var found = db.prepare('SELECT * FROM users WHERE name = ?').get(name);
     if(found !== undefined) {
         console.log(password, found.password);
       if(bcrypt.compareSync(password, found.password)){
@@ -21,6 +21,10 @@ exports.login = function(name, password){
   };
 
 exports.new_user = function(name, password){
-    db.prepare("INSERT INTO user (name, password) VALUES (?, ?)").run(name, password);
-    return db.prepare('SELECT * FROM user WHERE name = ?').get(name);
+    db.prepare("INSERT INTO user (name, password) VALUES (?, ?,0)").run(name, password);
+    return db.prepare('SELECT * FROM users WHERE name = ?').get(name);
+}
+
+exports.get_user = function(name){
+  return db.prepare('SELECT * FROM users WHERE name = ?').get(name);
 }

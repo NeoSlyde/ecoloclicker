@@ -27,7 +27,7 @@ app.use(cookieSession({
 //============================RENDER=============================//
 app.get('/', middleware, (req,res) =>{
     res.locals.inShop = false;
-    res.render('index',{messages : model_messages.messages_list()});
+    res.render('index');
 })
 
 app.get('/signup',(req,res) =>{
@@ -45,6 +45,18 @@ app.post('/add_message', is_authenticated,(req,res)=>{
       model_messages.add_message(req.session.user.id, req.body.text);
     }
       res.redirect("/");
+});
+
+app.get('/messages_content', is_authenticated, (req, res) => {
+  res.render('messages_content', {messages : model_messages.messages_list()});
+});
+
+app.get('/profile',is_authenticated,(req,res) =>{
+  res.render("profile",model_user.get_user(res.locals.name));
+});
+
+app.get('/update-profile-form',(req,res) =>{
+  res.render("update-profile-form");
 });
 
 //=========================SESSION===========================//

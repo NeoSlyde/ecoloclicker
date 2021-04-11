@@ -8,7 +8,7 @@ exports.add_message = function(author, text) {
   }
   
 exports.messages_list = function(){
-    let select = db.prepare('SELECT m.message, u.name FROM messages m INNER JOIN user u ON u.rowid = m.idUser ORDER BY m.rowid DESC LIMIT 20')
+    let select = db.prepare('SELECT m.message, u.name FROM messages m INNER JOIN users u ON u.rowid = m.idUser ORDER BY m.rowid DESC LIMIT 20')
     let result = select.all();
     return result.reverse();
 }

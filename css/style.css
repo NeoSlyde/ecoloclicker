@@ -13,6 +13,13 @@
   text-align: center;
 }
 
+.obscure{     
+  background-color:rgba(0,0,0,0.6);
+  height: 550px;
+}
+
+
+
 h1 {
   text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
