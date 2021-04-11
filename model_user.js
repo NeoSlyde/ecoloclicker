@@ -21,7 +21,7 @@ exports.login = function(name, password){
   };
 
 exports.new_user = function(name, password){
-    db.prepare("INSERT INTO user (name, password) VALUES (?, ?,0)").run(name, password);
+    db.prepare("INSERT INTO users (name, password) VALUES (?, ?,0)").run(name, password);
     return db.prepare('SELECT * FROM users WHERE name = ?').get(name);
 }
 
