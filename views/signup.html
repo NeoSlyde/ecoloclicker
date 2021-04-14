@@ -24,6 +24,9 @@
 	  {{#wrong}}
 	  <h3 class="container d-flex justify-content-center red" style="color: red;">Vérifiez votre mot de passe</h3>
 	  {{/wrong}}
+	  {{#already}}
+	  <h3 class="container d-flex justify-content-center red" style="color: red;">Ce nom d'utilisateur est déjà utilisé</h3>
+	  {{/already}}
       <div class="form-group col-lg-offset-3 col-lg-4">
         <form action="/signup" method="POST">
             <label for="name">Nom d'utilisateur</label>

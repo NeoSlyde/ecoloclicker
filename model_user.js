@@ -21,7 +21,11 @@ exports.login = function(name, password){
   };
 
 exports.new_user = function(name, password){
-    db.prepare("INSERT INTO users (name, password) VALUES (?, ?,0)").run(name, password);
+	var found = db.prepare('SELECT * FROM users WHERE name = ?').get(name);
+	if(found !== undefined){
+		return -1;
+	}
+    db.prepare("INSERT INTO users (name, password, score) VALUES (?, ?,0)").run(name, password);
     return db.prepare('SELECT * FROM users WHERE name = ?').get(name);
 }
 

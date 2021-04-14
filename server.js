@@ -92,10 +92,16 @@ app.post('/signup',(req,res) =>{
     var hashedPassword = crypt_password(req.body.password);
     console.log(hashedPassword);
     const user = model_user.new_user(req.body.name, hashedPassword);
+	if(user == -1){
+		res.locals.already = true;
+		res.render('signup');
+	}
+	else{
     console.log(user);
     req.session.user = user;
     res.locals.name = req.body.name;
     res.redirect('/')
+	}
 });
 
 function crypt_password(password) {
