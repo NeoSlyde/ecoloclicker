@@ -44,7 +44,7 @@ app.post('/add_message', is_authenticated,(req,res)=>{
     if(req.body.text != ""){
       model_messages.add_message(req.session.user.id, req.body.text);
     }
-      res.redirect("/");
+    //res.redirect("/");
 });
 
 app.get('/messages_content', is_authenticated, (req, res) => {
