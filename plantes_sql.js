@@ -22,13 +22,13 @@ exports.read = function(id){
 exports.getStock = function(id){
     var getStock = db.prepare("SELECT stock from plantes where id = ?");
     var stock = getStock.get(id);
+
     return stock;
 }
 
 exports.addStock = function(id,stockToAdd){
     var getStock = db.prepare("SELECT stock from plantes where id = ?");
     var stock = getStock.get(id);
-    console.log(stock);
     db.prepare("UPDATE plantes SET stock = (?+?) where id = ?").run(stock.stock,stockToAdd,id);
 
     var getNewStock = db.prepare("SELECT stock from plantes where id = ?");
@@ -43,6 +43,7 @@ exports.removeStock = function(id,stockToRemove){
 
     var getNewStock = db.prepare("SELECT stock from plantes where id = ?");
     var newStock = getNewStock.get(id);
+
     return newStock;
 }
 

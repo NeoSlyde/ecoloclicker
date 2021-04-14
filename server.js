@@ -157,30 +157,37 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-app.get('/shop-form/:id',is_authenticated,(req,res)=>{
+app.get('/shop-formm/:id',is_authenticated,(req,res)=>{
   res.locals.inShop = true;
   res.locals.available = true;
-  res.locals.money = true;
+  res.locals.money = true;  
+
+
   let getStock = plantes.getStock(req.params.id);
-  let getScoreUser = model_user.getScore(res.locals.name).score;
-  if(getStock == 0){
-    res.locals.available = false;
+  let getScoreUser = model_user.getScore(res.locals.name);
+  if(getStock != undefined){
+      if(getStock.stock == 0){
+        res.locals.available = false;
+      }
+      if(getScoreUser.score < 10){               //temporaire
+        res.locals.money = false;
+        
+    }
   }
-  if(getScoreUser < 10){               //temporaire
-    res.locals.money = false;
-  }
+  
   res.render("shop-form",{plante : plantes.read(req.params.id)});
+  
 });
 
 app.post('/sell/:id',(req,res)=>{
   plantes.addStock(req.params.id,1);
-  res.redirect("/shop-form/"+req.params.id);
+  res.redirect("/shop-formm/"+req.params.id);
 });
 
 app.post('/buy/:id',(req,res)=>{
   plantes.removeStock(req.params.id,1);
-  model_user.removeScore(req.session.user.name,1);
-  res.redirect("/shop-form/"+req.params.id);
+  model_user.removeScore(req.session.user.name,10);
+  res.redirect("/shop-formm/"+req.params.id);
 });
 
 //========================================================//
