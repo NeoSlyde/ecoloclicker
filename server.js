@@ -3,6 +3,7 @@ var mustache = require('mustache-express');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
 
+
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -57,6 +58,32 @@ app.get('/profile',is_authenticated,(req,res) =>{
 
 app.get('/update-profile-form',(req,res) =>{
   res.render("update-profile-form");
+});
+
+app.get('/:id',is_authenticated,(req,res)=>{
+  res.locals.inShop = true;
+  res.locals.available = true;
+  res.locals.money = true;
+  let getStock = plantes.getStock(req.params.id).stock;
+  let getScoreUser = model_user.getScore(res.locals.name).score;
+  if(getStock == 0){
+    res.locals.available = false;
+  }
+  if(getScoreUser < 10){               //temporaire
+    res.locals.money = false;
+  }
+  res.render("shop-form",{plante : plantes.read(req.params.id)});
+});
+
+app.post('/sell/:id',(req,res)=>{
+  plantes.addStock(req.params.id,1);
+  res.redirect("/"+req.params.id);
+});
+
+app.post('/buy/:id',(req,res)=>{
+  plantes.removeStock(req.params.id,1);
+  model_user.removeScore(req.session.user.name,1);
+  res.redirect("/"+req.params.id);
 });
 
 //=========================SESSION===========================//

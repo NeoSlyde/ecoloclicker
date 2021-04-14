@@ -19,6 +19,33 @@ exports.read = function(id){
     return idPlantes;
 }
 
+exports.getStock = function(id){
+    var getStock = db.prepare("SELECT stock from plantes where id = ?");
+    var stock = getStock.get(id);
+    return stock;
+}
+
+exports.addStock = function(id,stockToAdd){
+    var getStock = db.prepare("SELECT stock from plantes where id = ?");
+    var stock = getStock.get(id);
+    console.log(stock);
+    db.prepare("UPDATE plantes SET stock = (?+?) where id = ?").run(stock.stock,stockToAdd,id);
+
+    var getNewStock = db.prepare("SELECT stock from plantes where id = ?");
+    var newStock = getNewStock.get(id);
+    return newStock;
+}
+
+exports.removeStock = function(id,stockToRemove){
+    var getStock = db.prepare("SELECT stock from plantes where id = ?");
+    var stock = getStock.get(id);
+    db.prepare("UPDATE plantes SET stock = (?-?) where id = ?").run(stock.stock,stockToRemove,id);
+
+    var getNewStock = db.prepare("SELECT stock from plantes where id = ?");
+    var newStock = getNewStock.get(id);
+    return newStock;
+}
+
 /*
 exports.create = function(description, image, name) {
     var insert = db.prepare('INSERT INTO plantes(description, image, name) VALUES (?, ?, ?)');

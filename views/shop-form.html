@@ -1,0 +1,52 @@
+{{> header}}
+
+<button style="position: fixed;top: 10px;right: 10px; padding-left: 0; padding-right: 0; border-radius: 50px; background-color: Transparent; border: none;" onclick="openNav()">
+    <img src="https://img.icons8.com/cotton/2x/menu.png" style="width: 100px;">
+  </button>
+
+<div class="row h-100 justify-content-center align-items-center">
+    <div class="card" style="background-color: rgb(43, 43, 41); width: 500px;">
+        <div class="card-img-top" style="height: 500px;background-size: 100% 100%;background-image: url({{plante.image}});">
+
+        </div>
+       <div class="card-body" style="height: 280px;color: white;">
+            
+           <div class="row h-25 justify-content-center align-items-center" style="border-bottom: white 3px solid; margin-top: -20px; margin-left: -21px; width: 500px;">
+                <h2>{{plante.name}}</h5>
+            </div>
+            <div class="row h-45 mt-2">
+
+                {{^available}}
+                <h3 class="container d-flex justify-content-center red mb-0" style="color: red;">Rupture de stock</h3>
+                {{/available}}
+                {{^money}}
+                <h3 class="container d-flex justify-content-center red mb-0" style="color: red;">Score insuffisant</h3>
+                {{/money}}
+
+                {{#money}}
+                {{#available}}
+                <div class="col text-center">
+                    <form action="/buy/{{plante.id}}" method="POST">
+                        <input class="btn btn-success rounded-pill btn-lg mt-3" type="submit" value="Acheter">
+                    </form>
+                </div>
+                {{/available}}
+                {{/money}}
+                <div class="col text-center">
+                    <form action="/sell/{{plante.id}}" method="POST">
+                        <input class="btn btn-warning rounded-pill btn-lg mt-3" style="color: white;" type="submit" value="Vendre">
+                    </form>
+                </div>
+                
+           </div>
+           <div class="row">
+            <h5 class="container d-flex justify-content-center" style="color: white;">prix : 10 score</h5>
+           </div>
+           <div class="row">
+            <h5 class="container d-flex justify-content-center" style="color: white;">Stock : {{plante.stock}}</h5>
+           </div>
+        </div>
+    </div>
+</div>
+
+{{> footer}}
