@@ -60,21 +60,6 @@ app.get('/update-profile-form',(req,res) =>{
   res.render("update-profile-form");
 });
 
-app.get('/:id',is_authenticated,(req,res)=>{
-  res.locals.inShop = true;
-  res.locals.available = true;
-  res.locals.money = true;
-  let getStock = plantes.getStock(req.params.id).stock;
-  let getScoreUser = model_user.getScore(res.locals.name).score;
-  if(getStock == 0){
-    res.locals.available = false;
-  }
-  if(getScoreUser < 10){               //temporaire
-    res.locals.money = false;
-  }
-  res.render("shop-form",{plante : plantes.read(req.params.id)});
-});
-
 app.post('/sell/:id',(req,res)=>{
   plantes.addStock(req.params.id,1);
   res.redirect("/"+req.params.id);
@@ -117,14 +102,14 @@ app.post('/signup',(req,res) =>{
       res.render('signup')
     }
     var hashedPassword = crypt_password(req.body.password);
-    console.log(hashedPassword);
+    //console.log(hashedPassword);
     const user = model_user.new_user(req.body.name, hashedPassword);
 	if(user == -1){
 		res.locals.already = true;
 		res.render('signup');
 	}
 	else{
-    console.log(user);
+    //console.log(user);
     req.session.user = user;
     res.locals.name = req.body.name;
     res.redirect('/')
@@ -138,10 +123,11 @@ function crypt_password(password) {
 
 app.post('/login', (req, res) => {
     const user = model_user.login(req.body.name, req.body.password);
-    console.log(user);
+    //console.log(user);
     if (user != -1 && user != -2) {
       req.session.user = user;
       res.locals.name = req.body.name;
+      res.locals.score = req.body.score;
       res.redirect('/');
     } else if (user == -1) {
       res.locals.failed_name = true;
@@ -154,11 +140,47 @@ app.post('/login', (req, res) => {
     }
   });
 
+app.get('/api/incrementScore', (req,res) => {
+    if(req.session.user == undefined){
+    res.send("Not Connected");
+    return;
+    }
+    const username = req.session.user.name;
+    oldScore = model_user.getScore(username);
+    newScore = oldScore.score + 1;
+    model_user.setScore(username, newScore)
+    res.send("ok");
+});
+
+app.get('/api/getScore', (req,res) => {
+    if(req.session.user == undefined){
+      res.send("Not Connected");
+      return;
+    }
+    const username = req.session.user.name;
+    score = model_user.getScore(username);
+    res.send(score);
+});
 
 app.get('/logout', (req, res) => {
     req.session = null;
     res.locals.name = null;
     res.redirect('/');
+});
+
+app.get('/:id',is_authenticated,(req,res)=>{
+  res.locals.inShop = true;
+  res.locals.available = true;
+  res.locals.money = true;
+  let getStock = plantes.getStock(req.params.id).stock;
+  let getScoreUser = model_user.getScore(res.locals.name).score;
+  if(getStock == 0){
+    res.locals.available = false;
+  }
+  if(getScoreUser < 10){               //temporaire
+    res.locals.money = false;
+  }
+  res.render("shop-form",{plante : plantes.read(req.params.id)});
 });
 
 //========================================================//

@@ -40,13 +40,17 @@ exports.getScore = function(name){
   return score;
 }
 
+exports.setScore = function(name, score){
+  db.prepare("UPDATE users SET score = ? WHERE name = ?").run(score, name);
+}
+
 exports.removeScore = function(name,scoreToRemove){
   var getScore = db.prepare("SELECT score from users where name = ?");
   var score = getScore.get(name);
   console.log("pass",score);
   db.prepare("UPDATE users SET score = (?-?) where name = ?").run(score.score,scoreToRemove,name);
 
-  
+
   var getNewscore = db.prepare("SELECT score from users where name = ?");
   var newScore = getNewscore.get(name);
   return newScore;

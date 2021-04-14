@@ -58,8 +58,8 @@ exports.update = function(description, image, name){
 
     var update = db.prepare('UPDATE plantes SET description = @description, image = @image, name = @name WHERE id = @id')
     var info = update.run({
-        
-        
+
+
     });
 
     if(info.changes == 1) return true;
