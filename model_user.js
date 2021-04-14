@@ -7,7 +7,7 @@ let db = new Sqlite('db.sqlite');
 exports.login = function(name, password){
     var found = db.prepare('SELECT * FROM users WHERE name = ?').get(name);
     if(found !== undefined) {
-        console.log(password, found.password);
+        //console.log(password, found.password);
       if(bcrypt.compareSync(password, found.password)){
         return found;
       }
@@ -47,7 +47,7 @@ exports.setScore = function(name, score){
 exports.removeScore = function(name,scoreToRemove){
   var getScore = db.prepare("SELECT score from users where name = ?");
   var score = getScore.get(name);
-  console.log("pass",score);
+  //console.log("pass",score);
   db.prepare("UPDATE users SET score = (?-?) where name = ?").run(score.score,scoreToRemove,name);
 
 
