@@ -19,6 +19,14 @@
   height: 550px;
 }
 
+.bg-rank{
+  height: 75px;
+  width: 75%;
+  margin-bottom: 10px;
+  background-color: rgb(241, 235, 235);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
 
 
 h1 {

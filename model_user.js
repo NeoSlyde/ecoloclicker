@@ -54,3 +54,9 @@ exports.removeScore = function(name,scoreToRemove){
   var newScore = getNewscore.get(name);
   return newScore;
 }
+
+exports.listBestPlayer = function(){
+  let select = db.prepare('SELECT * FROM users ORDER BY score DESC LIMIT 10')
+  let result = select.all();
+  return result;
+}

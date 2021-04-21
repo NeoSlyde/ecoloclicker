@@ -45,7 +45,7 @@ app.post('/add_message', is_authenticated,(req,res)=>{
     if(req.body.text != ""){
       model_messages.add_message(req.session.user.id, req.body.text);
     }
-    //res.redirect("/");
+    res.redirect("/");
 });
 
 app.get('/messages_content', is_authenticated, (req, res) => {
@@ -59,6 +59,18 @@ app.get('/profile',is_authenticated,(req,res) =>{
 app.get('/update-profile-form',(req,res) =>{
   res.render("update-profile-form");
 });
+
+app.get('/ranking',is_authenticated,(req,res)=>{
+  res.render("leaderBoard",{users_list : model_user.listBestPlayer()});
+});
+
+/*
+app.get('/search', (req, res) => {
+  var found = model.search(req.query.query);
+  //console.log(found);
+  //res.render('found', found);
+});
+*/
 
 //=========================SESSION===========================//
 
@@ -189,6 +201,8 @@ app.post('/buy/:id',(req,res)=>{
   model_user.removeScore(req.session.user.name,10);
   res.redirect("/shop-formm/"+req.params.id);
 });
+
+
 
 //========================================================//
 
