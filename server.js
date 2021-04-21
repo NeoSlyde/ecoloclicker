@@ -199,7 +199,7 @@ app.post('/sell/:id',(req,res)=>{
 app.post('/buy/:id',(req,res)=>{
   plantes.removeStock(req.params.id,1);
   model_user.removeScore(req.session.user.name,10);
-  res.redirect("/shop-formm/"+req.params.id);
+  res.redirect("/shop-form/"+req.params.id);
 });
 
 
