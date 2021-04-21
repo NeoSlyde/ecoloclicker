@@ -169,7 +169,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-app.get('/shop-formm/:id',is_authenticated,(req,res)=>{
+app.get('/shop-form/:id',is_authenticated,(req,res)=>{
   res.locals.inShop = true;
   res.locals.available = true;
   res.locals.money = true;  
