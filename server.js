@@ -193,7 +193,7 @@ app.get('/shop-form/:id',is_authenticated,(req,res)=>{
 
 app.post('/sell/:id',(req,res)=>{
   plantes.addStock(req.params.id,1);
-  res.redirect("/shop-formm/"+req.params.id);
+  res.redirect("/shop-form/"+req.params.id);
 });
 
 app.post('/buy/:id',(req,res)=>{
