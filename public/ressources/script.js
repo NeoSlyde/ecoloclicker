@@ -12,7 +12,7 @@ function initElement() {
     fetch('/api/getScore').then(x => x.json()).then(x => scoredom.innerText = x.score);
 
     let img = document.createElement('img');
-    img.src = "wota.gif";
+    img.src = "/ressources/wota.gif";
     img.style.height = '10%';
     img.style.top = (posY - 100 - 380) + "px";
     img.style.left = (posX - 100 - 380) + "px";
@@ -41,8 +41,10 @@ function refresh_messages() {
   }, 1000);
 }
 
-
-
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
 
 function showAlert() {
   alert("Evènement de click détecté");

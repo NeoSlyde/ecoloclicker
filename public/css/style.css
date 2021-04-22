@@ -48,7 +48,7 @@ label {
 }
 
 .game{
-  background-image: url("bg.gif");
+  background-image: url("/ressources/bg.gif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -59,7 +59,7 @@ label {
   left: 0;
 }
 .hitbox {
-	 cursor: url("cursor.png"), auto;
+	 cursor: url("/ressources/cursor.png"), auto;
    position: absolute;
    margin-top: 380px;
    margin-left: 380px;

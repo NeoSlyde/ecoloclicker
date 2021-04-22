@@ -60,3 +60,17 @@ exports.listBestPlayer = function(){
   let result = select.all();
   return result;
 }
+
+exports.deleteUser = function(id){
+  var found = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
+  console.log(found)
+  db.prepare("DELETE FROM users WHERE id = ?").run(id);
+}
+
+exports.changePicture = function(imagePath, id){
+  db.prepare("UPDATE users SET profilepic = ? WHERE id = ?").run(imagePath, id)
+}
+
+exports.changePassword = function(id, password){
+  db.prepare("UPDATE users SET password = ? WHERE id = ?").run(password, id)
+}

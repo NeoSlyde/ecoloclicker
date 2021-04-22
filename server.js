@@ -2,12 +2,13 @@ var express = require('express');
 var mustache = require('mustache-express');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+var multer = require('multer');
 
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(__dirname + '/css'));
+app.use(express.static(__dirname + '/public'));
 app.use(express.static("ressources"));
 app.engine('html', mustache());
 app.set('view engine', 'html');
@@ -18,7 +19,11 @@ var plantes = require('./plantes_sql');
 var model_user = require('./model_user');
 var model_messages = require('./model_messages');
 
+
 const cookieSession = require('cookie-session');
+const upload = multer({dest: __dirname + '/public/ressources/profile'});
+
+
 app.use(cookieSession({
     name: 'session',
     secret: 'mot-de-passe-du-cookie',
@@ -62,6 +67,18 @@ app.get('/update-profile-form',(req,res) =>{
 
 app.get('/ranking',is_authenticated,(req,res)=>{
   res.render("leaderBoard",{users_list : model_user.listBestPlayer()});
+});
+
+app.get('/accountdelete',is_authenticated,(req,res)=>{
+  res.render("accountdelete");
+});
+
+app.get('/changepassword',is_authenticated,(req,res)=>{
+  res.render("changepassword");
+});
+
+app.get('/profilepicture',is_authenticated,(req,res)=>{
+  res.render("profilepicture");
 });
 
 /*
@@ -127,6 +144,7 @@ app.post('/login', (req, res) => {
     //console.log(user);
     if (user != -1 && user != -2) {
       req.session.user = user;
+      res.locals.id = user.id;
       res.locals.name = req.body.name;
       res.locals.score = req.body.score;
       res.redirect('/');
@@ -140,6 +158,44 @@ app.post('/login', (req, res) => {
       res.redirect('/');
     }
   });
+
+  app.post('/changepassword', (req,res) => {
+    if(! bcrypt.compareSync(req.body.oldpassword, req.session.user.password)){
+      res.locals.nope = true;
+      res.render('changepassword')
+    }
+    if(req.body.password != req.body.password2){
+      res.locals.wrong = true;
+      res.render('changepassword')
+    }
+    else{
+    var hashedPassword = crypt_password(req.body.password);
+    model_user.changePassword(req.session.user.id, hashedPassword)
+    res.redirect('/');
+  }
+  });
+
+  app.post('/upload', upload.single('image'), (req,res) => {
+    if(req.file) {
+      console.log(req.file.path)
+      model_user.changePicture("/ressources/profile/" + req.file.filename, req.session.user.id)
+      res.redirect('/profile')
+    }
+    else throw 'error';
+  });
+
+  app.get('/supprimer', (req,res) => {
+    if(req.session.user == undefined){
+      res.send("Not Connected");
+      return;
+    }
+    const id = req.session.user.id;
+    model_user.deleteUser(id)
+    req.session = null;
+    res.locals.name = null;
+    res.redirect('/');
+  });
+
 
 app.get('/api/incrementScore', (req,res) => {
     if(req.session.user == undefined){
