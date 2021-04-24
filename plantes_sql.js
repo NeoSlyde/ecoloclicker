@@ -26,6 +26,10 @@ exports.getStock = function(id){
     return stock;
 }
 
+exports.getPrix = function(id){
+    return db.prepare("SELECT prix from plantes where id = ?").get(id)
+}
+
 exports.addStock = function(id,stockToAdd){
     var getStock = db.prepare("SELECT stock from plantes where id = ?");
     var stock = getStock.get(id);

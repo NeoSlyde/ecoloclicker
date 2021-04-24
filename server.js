@@ -240,11 +240,13 @@ app.get('/shop-form/:id',is_authenticated,(req,res)=>{
 
   let getStock = plantes.getStock(req.params.id);
   let getScoreUser = model_user.getScore(res.locals.name);
+  let getPrix = plantes.getPrix(req.params.id);
+
   if(getStock != undefined){
       if(getStock.stock == 0){
         res.locals.available = false;
       }
-      if(getScoreUser.score < 10){               //temporaire
+      if(getScoreUser.score < getPrix.prix){
         res.locals.money = false;
         
     }
