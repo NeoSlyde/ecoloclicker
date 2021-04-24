@@ -9,7 +9,6 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.static("ressources"));
 app.engine('html', mustache());
 app.set('view engine', 'html');
 app.set('views', './views');
@@ -81,13 +80,21 @@ app.get('/profilepicture',is_authenticated,(req,res)=>{
   res.render("profilepicture");
 });
 
-/*
-app.get('/search', (req, res) => {
-  var found = model.search(req.query.query);
-  //console.log(found);
-  //res.render('found', found);
+
+app.get('/aboutus',is_authenticated,(req,res)=>{
+
+  res.render('aboutus');
 });
-*/
+
+app.get('/search', is_authenticated,(req, res) => {
+  res.locals.inShop = true;
+  res.locals.notFound = false;
+  var found =  plantes.search(req.query.query);
+  if (found.length == 0){
+    res.locals.notFound = true
+  }
+  res.render('found', {plantes_list : found, query : req.query.query});
+});
 
 //=========================SESSION===========================//
 
@@ -177,7 +184,7 @@ app.post('/login', (req, res) => {
 
   app.post('/upload', upload.single('image'), (req,res) => {
     if(req.file) {
-      console.log(req.file.path)
+      //console.log(req.file.path)
       model_user.changePicture("/ressources/profile/" + req.file.filename, req.session.user.id)
       res.redirect('/profile')
     }

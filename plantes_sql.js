@@ -47,39 +47,8 @@ exports.removeStock = function(id,stockToRemove){
     return newStock;
 }
 
-/*
-exports.create = function(description, image, name) {
-    var insert = db.prepare('INSERT INTO plantes(description, image, name) VALUES (?, ?, ?)');
-    var idPlantes = insert.run(description, image, name);
-
-    return idPlantes.lastInsertRowid;
+exports.search = function(query){
+    query = query || "";
+    var found = db.prepare("SELECT * FROM plantes WHERE name LIKE ?").all("%"+query+"%");
+    return found;
 }
-
-exports.update = function(description, image, name){
-
-    var update = db.prepare('UPDATE plantes SET description = @description, image = @image, name = @name WHERE id = @id')
-    var info = update.run({
-
-
-    });
-
-    if(info.changes == 1) return true;
-    return false;
-}
-
-exports.delete = function(id) {
-    var deletePlante = db.prepare('DELETE FROM Plantes WHERE id = ?');
-    var info = deletePlante.run(id);
-
-    return info.changes == 1 ? true : false;
-}
-
-exports.save = function(filename) {
-    var plantes_list = db.prepare('SELECT * FROM Plantes ORDER BY id').all();
-    var plantes = {};
-    for(var plante of plantes_list) {
-        plantes[plante.id] = plante;
-    }
-    fs.writeFileSync(filename, JSON.stringify(plantes));
-};
-*/
