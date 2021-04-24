@@ -38,7 +38,7 @@ function refresh_messages() {
       messages.innerHTML = text;
 
     });
-  }, 1000);
+  }, 100);
 }
 
 var loadFile = function(event) {

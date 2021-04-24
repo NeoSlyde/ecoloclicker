@@ -226,6 +226,12 @@ app.get('/api/getScore', (req,res) => {
     res.send(score);
 });
 
+app.post('/api/add_message', is_authenticated,(req,res)=>{
+  if(req.body.text != ""){
+    model_messages.add_message(req.session.user.id, req.body.text);
+  }
+});
+
 app.get('/logout', (req, res) => {
     req.session = null;
     res.locals.name = null;
