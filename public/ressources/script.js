@@ -19,12 +19,6 @@ function initElement() {
     p.appendChild(img);
     setTimeout(() => p.removeChild(img), 350);
   });
-  let btn = document.getElementById("messagebtn");
-  let text = document.getElementById("messagetext");
-  btn.addEventListener('click', event => {
-    setTimeout(() => text.value = "", 1);
-    chat.scrollTop = chat.scrollHeight;
-  })
 };
 
 
@@ -36,7 +30,6 @@ function refresh_messages() {
     }).then(function(text) {
       var messages = document.getElementById('messagesBlock');
       messages.innerHTML = text;
-
     });
   }, 100);
 }
@@ -48,4 +41,24 @@ var loadFile = function(event) {
 
 function showAlert() {
   alert("Evènement de click détecté");
+}
+
+
+function postMessage() {
+  let chat = document.getElementById("messagesBlock");
+  let text = document.getElementById("messagetext");
+  console.log(text);
+  let message = {
+    content: text.value
+  };
+  fetch('/api/add_message', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(message)
+  })
+
+  setTimeout(() => text.value = "", 1);
+  chat.scrollTop = chat.scrollHeight;
 }

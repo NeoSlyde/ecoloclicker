@@ -1,6 +1,7 @@
 var express = require('express');
 var mustache = require('mustache-express');
 var bodyParser = require('body-parser');
+let urlencodedParser = bodyParser.json({ extended: false });
 var bcrypt = require('bcrypt');
 var multer = require('multer');
 
@@ -226,10 +227,11 @@ app.get('/api/getScore', (req,res) => {
     res.send(score);
 });
 
-app.post('/api/add_message', is_authenticated,(req,res)=>{
-  if(req.body.text != ""){
-    model_messages.add_message(req.session.user.id, req.body.text);
+app.post('/api/add_message', urlencodedParser, is_authenticated,(req,res)=>{
+  if(req.body.content != ""){
+    model_messages.add_message(req.session.user.id, req.body.content);
   }
+  res.send({status: "OK"})
 });
 
 app.get('/logout', (req, res) => {
