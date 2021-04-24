@@ -11,7 +11,7 @@ var load = function(filename) {
     //db.prepare('DROP TABLE IF EXISTS user').run();
     //db.prepare('DROP TABLE IF EXISTS messages').run();
 
-    db.prepare('CREATE TABLE IF NOT EXISTS Plantes(id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, image TEXT, name TEXT, stock INT)').run();
+    db.prepare('CREATE TABLE IF NOT EXISTS Plantes(id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, image TEXT, name TEXT, stock INT, prix INT)').run();
     db.prepare('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, score INT, profilepic TEXT)').run();
 	db.prepare('CREATE TABLE IF NOT EXISTS messages (idUser ID, message TEXT)').run();
 	
@@ -27,5 +27,5 @@ var load = function(filename) {
     transaction(plantes);
 }
 
-load("./ressources/plantes.json");
+load("./public/ressources/plantes.json");
 
