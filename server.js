@@ -64,7 +64,7 @@ app.get('/update-profile-form',(req,res) =>{
   res.render("update-profile-form");
 });
 
-app.get('/ranking',is_authenticated,(req,res)=>{
+app.get('/ranking',middleware,(req,res)=>{
   res.render("leaderBoard",{users_list : model_user.listBestPlayer()});
 });
 
@@ -81,7 +81,7 @@ app.get('/profilepicture',is_authenticated,(req,res)=>{
 });
 
 
-app.get('/aboutus',is_authenticated,(req,res)=>{
+app.get('/aboutus',middleware,(req,res)=>{
 
   res.render('aboutus');
 });
