@@ -48,7 +48,7 @@ label {
 
 @font-face {
   font-family: "Press Start 2P";
-  src: url(font/font.ttf) format("truetype");
+  src: url(../ressources/font.ttf) format("truetype");
 }
 
 .game{
