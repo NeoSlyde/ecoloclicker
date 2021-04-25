@@ -18,6 +18,7 @@ app.set('views', './views');
 var plantes = require('./plantes_sql');
 var model_user = require('./model_user');
 var model_messages = require('./model_messages');
+var model_address = require('./model_address');
 
 
 const cookieSession = require('cookie-session');
@@ -71,6 +72,10 @@ app.get('/ranking',middleware,(req,res)=>{
 
 app.get('/accountdelete',is_authenticated,(req,res)=>{
   res.render("accountdelete");
+});
+
+app.get('/changeaddress',is_authenticated,(req,res)=>{
+  res.render("changeaddress", {info : model_address.getAddress(req.session.user.id)});
 });
 
 app.get('/changepassword',is_authenticated,(req,res)=>{
@@ -190,6 +195,11 @@ app.post('/login', (req, res) => {
       res.redirect('/profile')
     }
     else throw 'error';
+  });
+
+  app.post('/changeaddress', is_authenticated, (req,res) => {
+    model_address.changeAddress(req.session.user.id, req.body.nom, req.body.adresse, req.body.ville, req.body.postal, req.body.pays)
+    res.redirect('/profile');
   });
 
   app.get('/supprimer', (req,res) => {
