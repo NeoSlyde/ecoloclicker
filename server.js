@@ -19,6 +19,7 @@ var plantes = require('./plantes_sql');
 var model_user = require('./model_user');
 var model_messages = require('./model_messages');
 var model_address = require('./model_address');
+var model_orders = require('./model_orders');
 
 
 const cookieSession = require('cookie-session');
@@ -281,7 +282,8 @@ app.post('/sell/:id',(req,res)=>{
 
 app.post('/buy/:id',(req,res)=>{
   plantes.removeStock(req.params.id,1);
-  model_user.removeScore(req.session.user.name,10);
+  model_user.removeScore(req.session.user.name, plantes.getPrix(req.params.id).prix);
+  model_orders.orderThis(req.session.user.id, req.params.id)
   res.redirect("/shop-form/"+req.params.id);
 });
 
