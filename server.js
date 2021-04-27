@@ -132,6 +132,7 @@ app.post('/signup',(req,res) =>{
     if(req.body.password != req.body.password2){
       res.locals.wrong = true;
       res.render('signup')
+	  return;
     }
     var hashedPassword = crypt_password(req.body.password);
     //console.log(hashedPassword);
@@ -139,6 +140,7 @@ app.post('/signup',(req,res) =>{
 	if(user == -1){
 		res.locals.already = true;
 		res.render('signup');
+		return;
 	}
 	else{
     //console.log(user);
@@ -177,10 +179,12 @@ app.post('/login', (req, res) => {
     if(! bcrypt.compareSync(req.body.oldpassword, req.session.user.password)){
       res.locals.nope = true;
       res.render('changepassword')
+	  return;
     }
     if(req.body.password != req.body.password2){
       res.locals.wrong = true;
       res.render('changepassword')
+	  return;
     }
     else{
     var hashedPassword = crypt_password(req.body.password);
