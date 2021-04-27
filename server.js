@@ -131,7 +131,7 @@ function middleware(req, res, next) {
 app.post('/signup',(req,res) =>{
     if(req.body.password != req.body.password2){
       res.locals.wrong = true;
-      res.render('signup')
+      res.render('signup');
 	  return;
     }
     var hashedPassword = crypt_password(req.body.password);
@@ -178,12 +178,12 @@ app.post('/login', (req, res) => {
   app.post('/changepassword', (req,res) => {
     if(! bcrypt.compareSync(req.body.oldpassword, req.session.user.password)){
       res.locals.nope = true;
-      res.render('changepassword')
+      res.render('changepassword');
 	  return;
     }
     if(req.body.password != req.body.password2){
       res.locals.wrong = true;
-      res.render('changepassword')
+      res.render('changepassword');
 	  return;
     }
     else{
