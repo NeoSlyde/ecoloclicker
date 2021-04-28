@@ -63,7 +63,7 @@ exports.listBestPlayer = function(){
 
 exports.deleteUser = function(id){
   var found = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
-  console.log(found)
+  //console.log(found)
   db.prepare("DELETE FROM users WHERE id = ?").run(id);
 }
 
